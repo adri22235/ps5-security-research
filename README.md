@@ -76,6 +76,8 @@ Because Prospero OS inherits core POSIX and BSD subsystems from FreeBSD, vulnera
 * **October 15, 2026:** Sony enforces Firmware 14.10 as **strictly mandatory for PlayStation Network (PSN) access**, actively cutting off network connectivity for consoles running earlier revisions to prevent further deployment of Ring -1 bypasses.
 * **Research State:** Firmware $\le$ 14.00 represents the primary target window where these kernel vectors remain unmitigated.
 
+👉 **See full analysis:** [**Firmware Compatibility Matrix & FW 14.10 Deep Dive (`FIRMWARE_COMPATIBILITY_1410.md`)**](FIRMWARE_COMPATIBILITY_1410.md)
+
 ---
 
 ## 5. Architectural Comparison: Orbis OS vs Prospero OS
