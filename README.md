@@ -96,6 +96,7 @@ Because Prospero OS inherits core POSIX and BSD subsystems from FreeBSD, vulnera
 
 * [`PROSPERO_ARCHITECTURE.md`](PROSPERO_ARCHITECTURE.md) — Detailed analysis of AMD Zen 2 SVM and hypervisor page table protections.
 * [`KERNEL_VECTORS_PS5.md`](KERNEL_VECTORS_PS5.md) — Source audit of FreeBSD 11/12+ subsystems in Prospero OS.
+* [`exploit_ps5.html`](exploit_ps5.html) — Interactive WebKit ROP and memory safety harness for Prospero OS.
 * [`tests/`](tests/) — Memory safety test benches verifying race windows and slab layout.
 
 ---
