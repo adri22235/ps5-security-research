@@ -39,8 +39,19 @@ During SAX2 callbacks, `libxml2` passes raw pointers into its active parser inpu
 
 ---
 
-## 4. Next Verification Steps (Safe / Non-Destructive)
+## 4. Source-Verified Exclusions (Preventing False Leads on FW 14.22)
 
-1. Confirm runtime patch state of `InternalReadableStream::tee()` (`ReadableStream.prototype.tee`) and `XMLDocumentParser` custom-element microtask handling on target firmware via controlled exception/boundary checks (`try { ... } catch (TypeError)`).
-2. Cross-reference [`FIRMWARE_COMPATIBILITY_1422.md`](FIRMWARE_COMPATIBILITY_1422.md) with any vendor security advisories published after November 2, 2026 (`Safari 27.2+` / `WebKitGTK 2.54+`).
-3. Maintain strict focus on non-JIT `WebCore` and `JSC` runtime paths; disregard DFG/FTL/B3/Wasm/WebGPU advisories during `14.22` triage.
+Direct commit inspection in `WebKit/WebKit` eliminates two widely circulated non-applicable CVE candidates for PlayStation 5 FW `14.22`:
+
+| CVE ID | Upstream Fix Commit & Bugzilla | Exact Patched File(s) | PS5 `14.22` Verdict | Reason |
+| :--- | :--- | :--- | :--- | :--- |
+| **`CVE-2025-43265`** *(Safari 18.6)* | `d96ab2fa64` *(Bug `294182`)* | `Source/JavaScriptCore/yarr/YarrJIT.cpp` (`+8/-39`) | **CONFIG-SILENT / NON-APPLICABLE** | Exclusively modifies `YarrJIT`, which is compiled out on PlayStation 5 (`ENABLE_JIT=0`). |
+| **`CVE-2026-64718`** *(Safari 26.6 / 27)* | `95f9f59bb1`, `2917a663b0` *(Bug `313935`)* | `Source/WebCore/platform/graphics/cg/PathCG.cpp` *(with `OffscreenCanvas` worker test)* | **NON-APPLICABLE** | Targets Apple's CoreGraphics backend (`PathCG`) and `OffscreenCanvas`; PS5 builds without CoreGraphics and reports `OffscreenCanvas=false`. |
+
+---
+
+## 5. Next Verification & Defensive Testing
+
+1. Run [`tests/test_webcore_1422_invariants.c`](tests/test_webcore_1422_invariants.c) (`make -C tests run`) to verify the `HashMap` bucket-rehash, `libxml2` span ownership ordering, and `InternalReadableStream::tee` validation models.
+2. Confirm runtime patch state of `InternalReadableStream::tee()` (`ReadableStream.prototype.tee`) and `XMLDocumentParser` custom-element microtask handling on target firmware via safe exception/boundary checks (`TypeError` assertions).
+3. Cross-reference [`FIRMWARE_COMPATIBILITY_1422.md`](FIRMWARE_COMPATIBILITY_1422.md) with any vendor security advisories published after November 2, 2026 (`Safari 27.2+` / `WebKitGTK 2.54+`).
