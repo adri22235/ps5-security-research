@@ -97,6 +97,7 @@ Because Prospero OS inherits core POSIX and BSD subsystems from FreeBSD, vulnera
 ## 6. Repository Roadmap
 
 * [`FIRMWARE_COMPATIBILITY_1422.md`](FIRMWARE_COMPATIBILITY_1422.md) — **FW 14.22 (`26.07-14.22.00`)** dossier: patch delta vs `14.10–14.20`, WebKit `bmalloc` `4608` class law, `FontFace` Itanium ABI, and WebProcess `.text` RVA blocker.
+* [`WEBKIT_AUDITING_1422.md`](WEBKIT_AUDITING_1422.md) — Non-JIT `WebCore` source-verified audit (`CSSSegmentedFontFace::fontRanges`, `InternalReadableStream::tee`, `XMLDocumentParser::startElementNs`) against Nov 2026 upstream patches.
 * [`FIRMWARE_COMPATIBILITY_1410.md`](FIRMWARE_COMPATIBILITY_1410.md) — `14.00` vs `14.10` compatibility matrix and Ring 0 $\rightarrow$ Ring -1 baseline.
 * [`PROSPERO_ARCHITECTURE.md`](PROSPERO_ARCHITECTURE.md) — Detailed analysis of AMD Zen 2 SVM and hypervisor page table protections.
 * [`KERNEL_VECTORS_PS5.md`](KERNEL_VECTORS_PS5.md) — Source audit of FreeBSD 11/12+ subsystems in Prospero OS.
