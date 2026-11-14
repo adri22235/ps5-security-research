@@ -69,14 +69,16 @@ Because Prospero OS inherits core POSIX and BSD subsystems from FreeBSD, vulnera
 
 ---
 
-## 4. Firmware Chronology: The 14.00 vs 14.10 Divide
+## 4. Firmware Chronology: `14.00` $\rightarrow$ `14.10` $\rightarrow$ `14.20` $\rightarrow$ `14.22`
 
 * **September 16, 2026:** Sony deploys **Firmware 14.00** across the PlayStation ecosystem.
-* **October 1, 2026:** In response to accelerated scene progress surrounding *Relapse* and *Byepervisor Reborn*, Sony issues emergency maintenance update **Firmware 14.10 for PlayStation 5**.
-* **October 15, 2026:** Sony enforces Firmware 14.10 as **strictly mandatory for PlayStation Network (PSN) access**, actively cutting off network connectivity for consoles running earlier revisions to prevent further deployment of Ring -1 bypasses.
-* **Research State:** Firmware $\le$ 14.00 represents the primary target window where these kernel vectors remain unmitigated.
+* **October 1, 2026:** In response to accelerated scene progress surrounding *Relapse* and *Byepervisor Reborn*, Sony issues emergency maintenance update **Firmware 14.10 for PlayStation 5** (enforced mandatory for PSN on October 15, 2026).
+* **October 21, 2026:** Sony deploys **Firmware 14.20**, explicitly patching the **`aio_multi_delete` ("Prolapse" / syscall 662)** TOCTOU race while preserving the WebKit `605.1.15 / 616`-era engine branch point.
+* **November 2, 2026:** Sony releases **Firmware `26.07-14.22.00` (FW 14.22)** (~1.27 GB security fixes tightening post-14.20 userland entry vectors ahead of late-2026 titles). Retail verification confirms `CanvasRenderingContext2D` alias R/W and `bmalloc` size-class behavior remain governed by the `605.1.15 / 616` branch point, while WebProcess `.text` RVA resolution (`text_size >= 42.87 MB`) and generic `CE-108262-9` zero-frame crash dumps remain the hard blockers. No public full kernel exploit exists above `13.60`.
 
-👉 **See full analysis:** [**Firmware Compatibility Matrix & FW 14.10 Deep Dive (`FIRMWARE_COMPATIBILITY_1410.md`)**](FIRMWARE_COMPATIBILITY_1410.md)
+👉 **See full analyses:**  
+* [**FW 14.22 (`26.07-14.22.00`) Security Dossier & WebKit Geometry (`FIRMWARE_COMPATIBILITY_1422.md`)**](FIRMWARE_COMPATIBILITY_1422.md)  
+* [**Firmware Compatibility Matrix & FW 14.10 Deep Dive (`FIRMWARE_COMPATIBILITY_1410.md`)**](FIRMWARE_COMPATIBILITY_1410.md)
 
 ---
 
@@ -94,10 +96,12 @@ Because Prospero OS inherits core POSIX and BSD subsystems from FreeBSD, vulnera
 
 ## 6. Repository Roadmap
 
+* [`FIRMWARE_COMPATIBILITY_1422.md`](FIRMWARE_COMPATIBILITY_1422.md) — **FW 14.22 (`26.07-14.22.00`)** dossier: patch delta vs `14.10–14.20`, WebKit `bmalloc` `4608` class law, `FontFace` Itanium ABI, and WebProcess `.text` RVA blocker.
+* [`FIRMWARE_COMPATIBILITY_1410.md`](FIRMWARE_COMPATIBILITY_1410.md) — `14.00` vs `14.10` compatibility matrix and Ring 0 $\rightarrow$ Ring -1 baseline.
 * [`PROSPERO_ARCHITECTURE.md`](PROSPERO_ARCHITECTURE.md) — Detailed analysis of AMD Zen 2 SVM and hypervisor page table protections.
 * [`KERNEL_VECTORS_PS5.md`](KERNEL_VECTORS_PS5.md) — Source audit of FreeBSD 11/12+ subsystems in Prospero OS.
-* [`exploit_ps5.html`](exploit_ps5.html) — Interactive WebKit ROP and memory safety harness for Prospero OS.
-* [`tests/`](tests/) — Memory safety test benches verifying race windows and slab layout.
+* [`exploit_ps5.html`](exploit_ps5.html) — Interactive WebKit (`14.00–14.22`) feature probe, `bmalloc` `4608` ladder verifier, and memory safety harness.
+* [`tests/`](tests/) — Memory safety & WebKit ABI verification benches (`test_prospero_bridge`, `test_webkit_1422_geometry`).
 
 ---
 

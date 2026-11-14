@@ -7,6 +7,9 @@
 
 ---
 
+> [!NOTE]
+> **Newer Dossier Available:** For post-14.10 progression through **14.20** (`aio_multi_delete` patch) and **FW 14.22 (`26.07-14.22.00`, Nov 2, 2026)** WebKit `605.1.15 / 616` allocator geometry, see [**FIRMWARE_COMPATIBILITY_1422.md**](FIRMWARE_COMPATIBILITY_1422.md).
+
 > [!WARNING]
 > ### CRITICAL ADVISORY FOR RESEARCHERS & HOMEBREW DEVELOPERS
 > **DO NOT UPDATE TO FIRMWARE 14.10.**  
